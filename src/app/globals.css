@@ -1,26 +1,213 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #faf7f2;
+  --foreground: #1c3a5e;
+  --muted: #1d4f87;
+  --surface: #fffdf9;
+  --surface-2: #f4ede0;
+  --border: color-mix(in srgb, #e8d9c0 80%, #1e4a7a 20%);
+  --accent: #1e4a7a;
+  --accent-hover: #1d4f87;
+  --accent-fg: #f2f7fd;
+  --wash: #5b9bd5;
+  --gold: #c9a44a;
+  --sage: #6b8f71;
+  --danger: #c45c5c;
+  --focus: #327ec5;
+  --shadow-ambient: 0 1px 2px color-mix(in srgb, #13253e 6%, transparent);
+  --shadow-direct: 0 12px 32px -16px color-mix(in srgb, #1e4a7a 28%, transparent);
+  --radius-card: 1.75rem;
+  --radius-control: 0.9rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #13253e;
+  --foreground: #faf7f2;
+  --muted: #cae2f3;
+  --surface: #1c3a5e;
+  --surface-2: #1e4a7a;
+  --border: color-mix(in srgb, #1d4f87 70%, #f4ede0 30%);
+  --accent: #7bb6df;
+  --accent-hover: #5b9bd5;
+  --accent-fg: #13253e;
+  --wash: #a6d0ea;
+  --gold: #d7bc72;
+  --sage: #95b199;
+  --danger: #da9492;
+  --focus: #92bde7;
+  --shadow-ambient: 0 1px 2px color-mix(in srgb, #000 40%, transparent);
+  --shadow-direct: 0 16px 40px -18px color-mix(in srgb, #000 55%, transparent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-wash: var(--wash);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-danger: var(--danger);
+  --color-focus: var(--focus);
+
+  --color-navy-50: #f2f7fd;
+  --color-navy-100: #e5eef9;
+  --color-navy-200: #c5dbf2;
+  --color-navy-300: #92bde7;
+  --color-navy-400: #579bd9;
+  --color-navy-500: #327ec5;
+  --color-navy-600: #2263a7;
+  --color-navy-700: #1d4f87;
+  --color-navy-800: #1e4a7a;
+  --color-navy-900: #1c3a5e;
+  --color-navy-950: #13253e;
+
+  --color-watercolor-50: #f2f8fc;
+  --color-watercolor-100: #e1eef8;
+  --color-watercolor-200: #cae2f3;
+  --color-watercolor-300: #a6d0ea;
+  --color-watercolor-400: #7bb6df;
+  --color-watercolor-500: #5b9bd5;
+  --color-watercolor-600: #4883c8;
+  --color-watercolor-700: #3e6fb7;
+  --color-watercolor-800: #375b96;
+  --color-watercolor-900: #314d77;
+  --color-watercolor-950: #223149;
+
+  --color-paper-50: #faf7f2;
+  --color-paper-100: #f4ede0;
+  --color-paper-200: #e8d9c0;
+  --color-paper-300: #d9be98;
+  --color-paper-400: #c99e6e;
+  --color-paper-500: #be8651;
+  --color-paper-600: #b07346;
+  --color-paper-700: #925c3c;
+  --color-paper-800: #764b36;
+  --color-paper-900: #603f2e;
+  --color-paper-950: #331f17;
+
+  --color-sage-50: #f8fbfa;
+  --color-sage-100: #f3f6f5;
+  --color-sage-200: #e1eae2;
+  --color-sage-300: #cddacf;
+  --color-sage-400: #95b199;
+  --color-sage-500: #6b8f71;
+  --color-sage-600: #465f4e;
+  --color-sage-700: #354b3b;
+  --color-sage-800: #212d20;
+  --color-sage-900: #132015;
+  --color-sage-950: #060f07;
+
+  --color-gold-50: #f9f6ed;
+  --color-gold-100: #f2ebd0;
+  --color-gold-200: #e6d7a5;
+  --color-gold-300: #d7bc72;
+  --color-gold-400: #c9a44a;
+  --color-gold-500: #b68e38;
+  --color-gold-600: #9a712d;
+  --color-gold-700: #7a5626;
+  --color-gold-800: #664725;
+  --color-gold-900: #573d25;
+  --color-gold-950: #322011;
+
+  --color-rose-50: #fcf5f4;
+  --color-rose-100: #f9ebea;
+  --color-rose-200: #f2dad9;
+  --color-rose-300: #e8bbb9;
+  --color-rose-400: #da9492;
+  --color-rose-500: #c45c5c;
+  --color-rose-600: #b24c51;
+  --color-rose-700: #953b42;
+  --color-rose-800: #7e333b;
+  --color-rose-900: #6c2f37;
+  --color-rose-950: #3b161a;
+
   --font-sans: var(--font-geist-sans);
+  --font-script: var(--font-great-vibes);
+  --font-display: var(--font-cormorant);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
+  min-height: 100dvh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.paper-shadow {
+  box-shadow: var(--shadow-ambient), var(--shadow-direct);
+  border: 1px solid var(--border);
+}
+
+.nested-radius {
+  border-radius: var(--radius-card);
+}
+
+.nested-radius > .nested-control {
+  border-radius: var(--radius-control);
+}
+
+@keyframes wash-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(2%, -1.5%, 0);
+  }
+}
+
+.wash-blob {
+  animation: wash-drift 18s ease-in-out alternate infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wash-blob {
+    animation: none;
+  }
 }
