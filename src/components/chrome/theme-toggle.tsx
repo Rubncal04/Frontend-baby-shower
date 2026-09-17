@@ -1,8 +1,7 @@
 "use client";
 
-import { useTheme } from "next-themes";
+import { useTheme } from "./theme-provider";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
 
 const OPTIONS = [
@@ -15,15 +14,6 @@ const OPTIONS = [
 export function ThemeToggle() {
   const t = useTranslations("chrome");
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div className="h-11 w-[8.5rem]" aria-hidden />;
-  }
 
   return (
     <div

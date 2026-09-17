@@ -96,4 +96,4 @@ Desde la invitación, **Anfitrión** (arriba a la derecha) abre el inicio de ses
 
 Las credenciales viven en el seed del backend (`ADMIN_EMAIL` y `ADMIN_PASSWORD`). No las commits en el frontend.
 
-Después de entrar verás quién rechazó, quién confirmó y quién reservó cada regalo.
+Después de entrar verás quién rechazó, quién confirmó y quién reservó cada regalo. En **Invitados** puedes añadir, editar o eliminar personas y grupos (incluidos grupos vacíos, para asignar gente después).

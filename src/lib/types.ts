@@ -105,6 +105,19 @@ export type AdminGuestGroup = {
   members: AdminGuest[];
 };
 
+export type AdminGroup = {
+  groupKey: string;
+  groupName: string;
+  type: GuestType;
+  memberCount: number;
+};
+
+export type GroupWritePayload = {
+  name: string;
+  type: GuestType;
+  key?: string;
+};
+
 export type AdminGift = {
   id: string;
   name: string;
@@ -118,6 +131,14 @@ export type AdminGift = {
   reservedByName: string | null;
   reservedByGroupKey: string | null;
   reservedAt: string | null;
+};
+
+export type GuestWritePayload = {
+  name: string;
+  type: GuestType;
+  phone?: string | null;
+  groupKey?: string;
+  groupName?: string;
 };
 
 export class ApiError extends Error {

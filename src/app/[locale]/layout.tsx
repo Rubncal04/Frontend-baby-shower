@@ -5,6 +5,8 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { Providers } from "@/components/chrome/providers";
+import { THEME_COOKIE, parseTheme, themeClassFromCookie } from "@/components/chrome/theme";
+import { cookies } from "next/headers";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -73,15 +75,18 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
+  const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
+  const themeClass = themeClassFromCookie(theme);
 
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} ${cormorant.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} ${cormorant.variable} h-full antialiased ${themeClass}`.trim()}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-background font-sans text-foreground">
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} theme={theme}>
           {children}
         </Providers>
       </body>

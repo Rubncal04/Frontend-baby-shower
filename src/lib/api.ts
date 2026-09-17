@@ -2,10 +2,13 @@ import { getAdminToken, getGuestToken } from "./storage";
 import { ApiError } from "./types";
 import type {
   AdminGift,
+  AdminGroup,
   AdminGuest,
   AdminGuestGroup,
   AdminOverview,
   EventInfo,
+  GroupWritePayload,
+  GuestWritePayload,
   IdentifyResponse,
   MeResponse,
   SessionResponse,
@@ -136,6 +139,39 @@ export function fetchAdminOverview(): Promise<AdminOverview> {
   return request<AdminOverview>("/admin/overview");
 }
 
+/** Returns every group, including empty ones, for assigning guests. */
+export function fetchAdminGroups(): Promise<{ groups: AdminGroup[] }> {
+  return request("/admin/groups");
+}
+
+/** Creates a group that guests can join later. */
+export function createAdminGroup(payload: GroupWritePayload): Promise<AdminGroup> {
+  return request("/admin/groups", {
+    method: "POST",
+    body: payload,
+  });
+}
+
+/** Updates a group's name or type. */
+export function updateAdminGroup(
+  groupKey: string,
+  payload: Partial<Pick<GroupWritePayload, "name" | "type">>,
+): Promise<AdminGroup> {
+  return request(`/admin/groups/${encodeURIComponent(groupKey)}`, {
+    method: "PATCH",
+    body: payload,
+  });
+}
+
+/** Deletes an empty group. */
+export function deleteAdminGroup(
+  groupKey: string,
+): Promise<{ success: true; groupKey: string }> {
+  return request(`/admin/groups/${encodeURIComponent(groupKey)}`, {
+    method: "DELETE",
+  });
+}
+
 /** Returns the guest checklist grouped by family/friends. */
 export function fetchAdminGuests(): Promise<{ groups: AdminGuestGroup[] }> {
   return request("/admin/guests");
@@ -155,6 +191,32 @@ export function updateAdminAttendance(
 /** Returns every gift, including the hidden pre-reserved crib. */
 export function fetchAdminGifts(): Promise<{ gifts: AdminGift[] }> {
   return request("/admin/gifts");
+}
+
+/** Adds a guest, optionally joining an existing family or friends group. */
+export function createAdminGuest(payload: GuestWritePayload): Promise<AdminGuest> {
+  return request("/admin/guests", {
+    method: "POST",
+    body: payload,
+  });
+}
+
+/** Updates a guest's name, phone, type, or group. */
+export function updateAdminGuest(
+  guestId: string,
+  payload: Partial<GuestWritePayload>,
+): Promise<AdminGuest> {
+  return request(`/admin/guests/${guestId}`, {
+    method: "PATCH",
+    body: payload,
+  });
+}
+
+/** Removes a guest and releases the group gift if the group is empty. */
+export function deleteAdminGuest(guestId: string): Promise<{ success: true; id: string }> {
+  return request(`/admin/guests/${guestId}`, {
+    method: "DELETE",
+  });
 }
 
 /** Releases a gift reservation unless it is the pre-reserved crib. */
