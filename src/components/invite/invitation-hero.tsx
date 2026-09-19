@@ -30,7 +30,7 @@ export function InvitationHero({ event }: InvitationHeroProps) {
         </h1>
         <div className="relative mx-auto mt-6 aspect-[4/5] max-w-sm overflow-hidden rounded-[1.25rem]">
           <Image
-            src="/art/invitation.jpg"
+            src="/art/invitation-10-octubre.jpg"
             alt=""
             fill
             priority
